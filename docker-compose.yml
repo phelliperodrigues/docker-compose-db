@@ -100,6 +100,27 @@ services:
       - redis
     networks:
       - database-network
+  oracle-db:
+    image: oracleinanutshell/oracle-xe-11g:latest
+    ports:
+      - 1521:1521
+      - 5500:5500
+    environment:
+      - "DB_CONNSTR=db.box:1521/orcl"
+      - "DB_TSAM_USER=oracle"
+      - "DB_TSAM_PASSWD=oraclepass"
+      - "TSAM_CONSOLE_ADMIN_PASSWD=oraclepass"
+      - "DBA_USER=sys"
+      - "DBA_PASSWD=oraclepass"
+      - "DB_TSAM_TBLSPACE=users"
+      - "WLS_PW=oraclepass"
+  sqlserver:
+    image: "mcr.microsoft.com/mssql/server"
+    environment:
+        SA_PASSWORD: "sqlserverpass"
+        ACCEPT_EULA: "Y"
+    ports:
+      - "1433:1433"
       
 networks:
   database-network:
